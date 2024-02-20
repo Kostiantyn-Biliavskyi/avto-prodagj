@@ -49,7 +49,8 @@ var avtoPrais = [65000, 70000, 78000, 35000, 40000, 48000, 35000, 40000, 50000];
 var country = ['США', 'АНГЛИЯ', 'ФРАНЦИЯ', 'ГЕРМАНИЯ', 'США', 'ПОЛЬША', 'ГЕРМАНИЯ', 'США', 'ФРАНЦИЯ'];
 var avtoBrend = ['Audi', 'Porsche', 'Mersedes', 'Reno', 'Honda', 'Toyota', 'Audi', 'Mersedes', 'Mersedes'];
 var itemAvto = document.querySelector('.itemAvto');
-var itemConst = 0;
+var itemConst = 0, iterOpen = 0, iterOpenBrend = 0;
+
 function createItem() {
    let cloneItem;
    for (let i = 0; i < avtoPrais.length; i++) {
@@ -70,6 +71,9 @@ createItem();
 
 document.querySelector('.wraperSortIten').addEventListener('click', Gosort);
 var cauntryBl;
+var countrySpan = document.querySelectorAll('.countrySpan');
+let brendSpan = document.querySelectorAll('.brendSpan');
+
 function Gosort(e) {
 
    switch (e.target.innerHTML) {
@@ -112,8 +116,10 @@ function Gosort(e) {
 
       let itemAvtoAll = document.querySelectorAll('.itemAvto');
       for (let i = 0; i < itemAvtoAll.length; i++) {
-         itemConst[i].style.display = '';
+         // itemConst[i].style.display = '';
          itemAvtoAll[i].remove();
+         iterOpen = 0;
+         iterOpenBrend = 0;
       }
       for (let ii = 0; ii < itemConst.length; ii++) {
          document.querySelector('.wraperAngar').append(itemConst[ii]);
@@ -123,7 +129,7 @@ function Gosort(e) {
    function expensive() {
       let wraperAngar = document.querySelector('.wraperAngar');
       let itemAvtoAll = document.querySelectorAll('.itemAvto');
-      let bufer = [], ty = [];
+      let ty = [];
       let praisSpan = document.querySelectorAll('.praisSpan');
 
       for (let ik = 0; ik <= avtoPrais.length; ik++) {
@@ -145,7 +151,7 @@ function Gosort(e) {
    function cheap() {
       let wraperAngar = document.querySelector('.wraperAngar');
       let itemAvtoAll = document.querySelectorAll('.itemAvto');
-      let bufer = [], ty = [];
+      let ty = [];
       let praisSpan = document.querySelectorAll('.praisSpan');
 
       for (let ik = 0; ik <= avtoPrais.length; ik++) {
@@ -164,18 +170,39 @@ function Gosort(e) {
    // -----------------
    function country() {
       let itemAvtoAll = document.querySelectorAll('.itemAvto');
-      let countrySpan = document.querySelectorAll('.countrySpan');
+      // let countrySpan = document.querySelectorAll('.countrySpan');
 
       if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
          sbros();
-      } else {
+         return 0;
+      }
+
+      if (iterOpen == 0) {
+         /* if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
+             sbros();
+          } else {*/
 
          for (let i = 0; i < itemAvtoAll.length; i++) {
             for (let ii = 0; ii < itemAvtoAll.length; ii++) {
-               if (cauntryBl == countrySpan[ii].innerHTML) {
-                   itemAvtoAll[ii].style.display = '';
+               if (cauntryBl == countrySpan[ii].textContent) {
+                  //  itemAvtoAll[ii].style.display = '';
+
                } else {
-                  itemAvtoAll[ii].style.display = 'none';
+                  itemAvtoAll[ii].remove();
+                  // itemAvtoAll[ii].style.display = 'none';
+               }
+            }
+         }
+         //}
+         iterOpen++;
+      } else {
+
+         for (let i = 0; i < itemConst.length; i++) {
+            for (let ii = 0; ii < itemConst.length; ii++) {
+               if (cauntryBl == countrySpan[ii].textContent) {
+                  document.querySelector('.wraperAngar').append(itemConst[ii]);
+               } else {
+
                }
             }
          }
@@ -185,20 +212,40 @@ function Gosort(e) {
 // --------------------------
 function brend() {
    let itemAvtoAll = document.querySelectorAll('.itemAvto');
-   let brendSpan = document.querySelectorAll('.brendSpan');
+   // let brendSpan = document.querySelectorAll('.brendSpan');
 
    if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
       sbros();
-   } else {
+      return 0;
+   }
+
+   /*if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
+      sbros();
+   } else {*/
+   if (iterOpenBrend == 0) {
+
       for (let i = 0; i < itemAvtoAll.length; i++) {
          for (let ii = 0; ii < itemAvtoAll.length; ii++) {
-            if (cauntryBl == brendSpan[ii].innerHTML) {
-                itemAvtoAll[ii].style.display = '';
+            if (cauntryBl == brendSpan[ii].textContent) {
+               // itemAvtoAll[ii].style.display = '';
             } else {
-               itemAvtoAll[ii].style.display = 'none';
+               itemAvtoAll[ii].remove();
+               // itemAvtoAll[ii].style.display = 'none';
+            }
+         }
+      }
+      iterOpenBrend++;
+   } else {
+      for (let i = 0; i < itemConst.length; i++) {
+         for (let ii = 0; ii < itemConst.length; ii++) {
+            if (cauntryBl == brendSpan[ii].textContent) {
+               document.querySelector('.wraperAngar').append(itemConst[ii]);
+            } else {
+
             }
          }
       }
    }
+   //}
 
 }
