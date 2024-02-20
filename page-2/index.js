@@ -102,16 +102,21 @@ function Gosort(e) {
          cauntryBl = e.target.innerHTML;
          brend();
          break;
-      case 'Сбросить':
+      case 'Сбросить фильтры':
          sbros();
          break;
       default:
          break;
    }
    function sbros() {
+
       let itemAvtoAll = document.querySelectorAll('.itemAvto');
       for (let i = 0; i < itemAvtoAll.length; i++) {
-         itemAvtoAll[i].style.display = '';
+         itemConst[i].style.display = '';
+         itemAvtoAll[i].remove();
+      }
+      for (let ii = 0; ii < itemConst.length; ii++) {
+         document.querySelector('.wraperAngar').append(itemConst[ii]);
       }
    }
 
@@ -121,23 +126,20 @@ function Gosort(e) {
       let bufer = [], ty = [];
       let praisSpan = document.querySelectorAll('.praisSpan');
 
-      for (let i = 0; i <= avtoPrais.length; i++) {
-         ty[i] = praisSpan[i].innerHTML;
+      for (let ik = 0; ik <= avtoPrais.length; ik++) {
+         ty[ik] = praisSpan[ik].textContent;
       }
       ty.sort(function (a, b) { return a - b });
       ty.reverse();
 
       for (let i = 0; i < ty.length; i++) {
          for (let ii = 0; ii < ty.length; ii++) {
-            if (ty[i] == praisSpan[ii].innerHTML) {
-               bufer[i] = itemAvtoAll[ii].cloneNode(true);
-               itemAvtoAll[ii].remove();
+            if (ty[i] == praisSpan[ii].textContent) {
+               wraperAngar.append(itemAvtoAll[ii]);
             }
          }
       }
-      for (let i = 0; i < ty.length; i++) {
-         wraperAngar.append(bufer[i]);
-      }
+
    }
    // ----------------------
    function cheap() {
@@ -145,76 +147,57 @@ function Gosort(e) {
       let itemAvtoAll = document.querySelectorAll('.itemAvto');
       let bufer = [], ty = [];
       let praisSpan = document.querySelectorAll('.praisSpan');
-      for (let i = 0; i <= avtoPrais.length; i++) {
-         ty[i] = praisSpan[i].innerHTML;
+
+      for (let ik = 0; ik <= avtoPrais.length; ik++) {
+         ty[ik] = praisSpan[ik].textContent;
       }
       ty.sort(function (a, b) { return a - b });
 
       for (let i = 0; i < ty.length; i++) {
          for (let ii = 0; ii < ty.length; ii++) {
-            if (ty[i] == praisSpan[ii].innerHTML) {
-               bufer[i] = itemAvtoAll[ii].cloneNode(true);
-               itemAvtoAll[ii].remove();
+            if (ty[i] == praisSpan[ii].textContent) {
+               wraperAngar.append(itemAvtoAll[ii]);
             }
          }
-      }
-      for (let i = 0; i < ty.length; i++) {
-         wraperAngar.append(bufer[i]);
       }
    }
    // -----------------
    function country() {
-      let wraperAngar = document.querySelector('.wraperAngar');
       let itemAvtoAll = document.querySelectorAll('.itemAvto');
-      let bufer = [], ty = [];
       let countrySpan = document.querySelectorAll('.countrySpan');
 
-      if (cauntryBl == document.querySelectorAll('.podBrend')[0].innerHTML) {
-         for (let i = 0; i < itemAvtoAll.length; i++) {
-            itemAvtoAll[i].style.display = '';
-         }
+      if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
+         sbros();
       } else {
 
          for (let i = 0; i < itemAvtoAll.length; i++) {
             for (let ii = 0; ii < itemAvtoAll.length; ii++) {
                if (cauntryBl == countrySpan[ii].innerHTML) {
-                  itemAvtoAll[ii].style.display = '';
+                   itemAvtoAll[ii].style.display = '';
                } else {
                   itemAvtoAll[ii].style.display = 'none';
                }
             }
-         }
-         for (let i = 0; i < ty.length; i++) {
-            wraperAngar.append(bufer[i]);
          }
       }
    }
 }
 // --------------------------
 function brend() {
-
-   let wraperAngar = document.querySelector('.wraperAngar');
    let itemAvtoAll = document.querySelectorAll('.itemAvto');
-   let bufer = [];
    let brendSpan = document.querySelectorAll('.brendSpan');
 
-   if (cauntryBl == document.querySelectorAll('.podBrend')[0].innerHTML) {
-      for (let i = 0; i < itemAvtoAll.length; i++) {
-         itemAvtoAll[i].style.display = '';
-      }
+   if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
+      sbros();
    } else {
-
       for (let i = 0; i < itemAvtoAll.length; i++) {
          for (let ii = 0; ii < itemAvtoAll.length; ii++) {
             if (cauntryBl == brendSpan[ii].innerHTML) {
-               itemAvtoAll[ii].style.display = '';
+                itemAvtoAll[ii].style.display = '';
             } else {
                itemAvtoAll[ii].style.display = 'none';
             }
          }
-      }
-      for (let i = 0; i < ty.length; i++) {
-         wraperAngar.append(bufer[i]);
       }
    }
 
