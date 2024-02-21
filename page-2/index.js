@@ -72,8 +72,9 @@ createItem();
 document.querySelector('.wraperSortIten').addEventListener('click', Gosort);
 var cauntryBl;
 var countrySpan = document.querySelectorAll('.countrySpan');
-let brendSpan = document.querySelectorAll('.brendSpan');
-
+var brendSpan = document.querySelectorAll('.brendSpan');
+var masChoiceUserBrend = [], masChoiceUserCountry = [];
+var maimMasCar = [];
 function Gosort(e) {
 
    switch (e.target.innerHTML) {
@@ -84,8 +85,15 @@ function Gosort(e) {
       case 'ПОЛЬША':
       case 'ЯПОНИЯ':
       case 'ИСПАНИЯ':
-      case 'Сбросить':
          cauntryBl = e.target.innerHTML;
+         if (masChoiceUserCountry.includes(cauntryBl)) {
+            e.target.classList.toggle("createBackgroundColor");
+            deleteCountry();
+         } else {
+            masChoiceUserCountry.push(cauntryBl);
+            e.target.classList.toggle("createBackgroundColor");
+            createCountry();
+         }
          country();
          break;
       case 'Сначала дорогие':
@@ -98,15 +106,23 @@ function Gosort(e) {
       case 'Porsche':
       case 'Mersedes':
       case 'Reno':
+      case 'Maserati':
       case 'Honda':
       case 'Toyota':
       case 'Tesla':
       case 'Corvette':
-      case 'Сбросить':
          cauntryBl = e.target.innerHTML;
-         brend();
+         if (masChoiceUserBrend.includes(cauntryBl)) {
+            e.target.classList.toggle("createBackgroundColor");
+            deleteBrend();
+         } else {
+            masChoiceUserBrend.push(cauntryBl);
+            e.target.classList.toggle("createBackgroundColor");
+            createBrend();
+         }
          break;
       case 'Сбросить фильтры':
+      case 'Сбросить':
          sbros();
          break;
       default:
@@ -116,15 +132,21 @@ function Gosort(e) {
 
       let itemAvtoAll = document.querySelectorAll('.itemAvto');
       for (let i = 0; i < itemAvtoAll.length; i++) {
-         // itemConst[i].style.display = '';
          itemAvtoAll[i].remove();
-         iterOpen = 0;
-         iterOpenBrend = 0;
       }
       for (let ii = 0; ii < itemConst.length; ii++) {
          document.querySelector('.wraperAngar').append(itemConst[ii]);
       }
-   }
+
+      let podBrend = document.querySelectorAll('.podBrend');
+      for (let it = 0; it < podBrend.length; it++) {
+         if (podBrend[it].classList.contains("createBackgroundColor")) {
+            podBrend[it].classList.remove("createBackgroundColor");
+         }
+      }
+      masChoiceUserBrend.splice(0, masChoiceUserBrend.length);//проблема
+      masChoiceUserCountry.splice(0, masChoiceUserCountry.length);
+   };
 
    function expensive() {
       let wraperAngar = document.querySelector('.wraperAngar');
@@ -132,7 +154,7 @@ function Gosort(e) {
       let ty = [];
       let praisSpan = document.querySelectorAll('.praisSpan');
 
-      for (let ik = 0; ik <= avtoPrais.length; ik++) {
+      for (let ik = 0; ik < praisSpan.length; ik++) {
          ty[ik] = praisSpan[ik].textContent;
       }
       ty.sort(function (a, b) { return a - b });
@@ -154,7 +176,7 @@ function Gosort(e) {
       let ty = [];
       let praisSpan = document.querySelectorAll('.praisSpan');
 
-      for (let ik = 0; ik <= avtoPrais.length; ik++) {
+      for (let ik = 0; ik < praisSpan.length; ik++) {
          ty[ik] = praisSpan[ik].textContent;
       }
       ty.sort(function (a, b) { return a - b });
@@ -168,84 +190,193 @@ function Gosort(e) {
       }
    }
    // -----------------
-   function country() {
-      let itemAvtoAll = document.querySelectorAll('.itemAvto');
-      // let countrySpan = document.querySelectorAll('.countrySpan');
 
+   function createCountry() {
+      let itemAvtoAll = document.querySelectorAll('.itemAvto');
+      for (let i = 0; i < itemAvtoAll.length; i++) {
+         itemAvtoAll[i].remove();
+      }
+
+      for (let ii = 0; ii < masChoiceUserCountry.length; ii++) {
+         for (let it = 0; it < itemAvtoAll.length; it++) {
+            if (masChoiceUserCountry[ii] == itemAvtoAll[it].querySelector('.countrySpan').textContent) {
+               document.querySelector('.wraperAngar').append(itemAvtoAll[it]);
+            }
+         }
+      }
+   };
+
+   function deleteCountry() {
+      let itemAvtoAll = document.querySelectorAll('.itemAvto');
+
+      for (let it = 0; it < itemAvtoAll.length; it++) {
+         if (cauntryBl == itemAvtoAll[it].querySelector('.countrySpan').textContent) {
+            itemAvtoAll[it].remove();
+            tuti();
+         }
+      }
+
+      for (let ir = 0; ir < masChoiceUserCountry.length; ir++) {
+         if (masChoiceUserCountry[ir] == cauntryBl) {
+            masChoiceUserCountry.splice(ir, 1); // проблема
+         }
+      }
+
+      function tuti() {
+         let itemAvtoAll = document.querySelectorAll('.itemAvto');
+         if (itemAvtoAll.length == 0) {
+            for (let ii = 0; ii < itemConst.length; ii++) {
+               document.querySelector('.wraperAngar').append(itemConst[ii]);
+            }
+
+            let podBrend = document.querySelectorAll('.podBrend');
+            for (let it = 0; it < podBrend.length; it++) {
+               if (podBrend[it].classList.contains("createBackgroundColor")) {
+                  podBrend[it].classList.remove("createBackgroundColor");
+               }
+            }
+
+            masChoiceUserCountry.splice(0, masChoiceUserBrend.length);//проблема
+         }
+
+      }
+   };
+
+
+
+   /* function country() {
+       let itemAvtoAll = document.querySelectorAll('.itemAvto');
+       // let countrySpan = document.querySelectorAll('.countrySpan');
+ 
+       if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
+          sbros();
+          return 0;
+       }
+ 
+       if (iterOpen == 0) {
+          // if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
+            //  sbros();
+           //} else {
+ 
+          for (let i = 0; i < itemAvtoAll.length; i++) {
+             for (let ii = 0; ii < itemAvtoAll.length; ii++) {
+                if (cauntryBl == countrySpan[ii].textContent) {
+                   //  itemAvtoAll[ii].style.display = '';
+ 
+                } else {
+                   itemAvtoAll[ii].remove();
+                   // itemAvtoAll[ii].style.display = 'none';
+                }
+             }
+          }
+          //}
+          iterOpen++;
+       } else {
+ 
+          for (let i = 0; i < itemConst.length; i++) {
+             for (let ii = 0; ii < itemConst.length; ii++) {
+                if (cauntryBl == countrySpan[ii].textContent) {
+                   document.querySelector('.wraperAngar').append(itemConst[ii]);
+                } else {
+ 
+                }
+             }
+          }
+       }
+    }
+ }*/
+   // --------------------------
+
+   function createBrend() {
+      let itemAvtoAll = document.querySelectorAll('.itemAvto');
+      for (let i = 0; i < itemAvtoAll.length; i++) {
+         itemAvtoAll[i].remove();
+      }
+
+      for (let ii = 0; ii < masChoiceUserBrend.length; ii++) {
+         for (let it = 0; it < itemAvtoAll.length; it++) {
+            if (masChoiceUserBrend[ii] == itemAvtoAll[it].querySelector('.brendSpan').textContent) {
+               document.querySelector('.wraperAngar').append(itemAvtoAll[it]);
+            }
+         }
+      }
+   };
+
+   function deleteBrend() {
+      let itemAvtoAll = document.querySelectorAll('.itemAvto');
+
+      for (let it = 0; it < itemAvtoAll.length; it++) {
+         if (cauntryBl == itemAvtoAll[it].querySelector('.brendSpan').textContent) {
+            itemAvtoAll[it].remove();
+            kuki();
+         }
+      }
+
+      for (let ir = 0; ir < masChoiceUserBrend.length; ir++) {
+         if (masChoiceUserBrend[ir] == cauntryBl) {
+            masChoiceUserBrend.splice(ir, 1);// проблема
+         }
+      }
+
+      function kuki() {
+         let itemAvtoAll = document.querySelectorAll('.itemAvto');
+         if (itemAvtoAll.length == 0) {
+            for (let ii = 0; ii < itemConst.length; ii++) {
+               document.querySelector('.wraperAngar').append(itemConst[ii]);
+            }
+
+            let podBrend = document.querySelectorAll('.podBrend');
+            for (let it = 0; it < podBrend.length; it++) {
+               if (podBrend[it].classList.contains("createBackgroundColor")) {
+                  podBrend[it].classList.remove("createBackgroundColor");
+               }
+            }
+
+            masChoiceUserCountry.splice(0, masChoiceUserCountry.length); // проблема
+         }
+
+      }
+   };
+
+   function brend() {
+
+      // ### ### #### #### #####
+
+      /*let itemAvtoAll = document.querySelectorAll('.itemAvto');
+      // let brendSpan = document.querySelectorAll('.brendSpan');
+   
       if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
          sbros();
          return 0;
       }
-
-      if (iterOpen == 0) {
-         /* if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
-             sbros();
-          } else {*/
-
+   
+      //if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
+       //  sbros();
+      //} else {
+      if (iterOpenBrend == 0) {
+   
          for (let i = 0; i < itemAvtoAll.length; i++) {
             for (let ii = 0; ii < itemAvtoAll.length; ii++) {
-               if (cauntryBl == countrySpan[ii].textContent) {
-                  //  itemAvtoAll[ii].style.display = '';
-
+               if ( == brendSpan[ii].textContent) {
+                  // itemAvtoAll[ii].style.display = '';
                } else {
                   itemAvtoAll[ii].remove();
                   // itemAvtoAll[ii].style.display = 'none';
                }
             }
          }
-         //}
-         iterOpen++;
+         iterOpenBrend++;
       } else {
-
          for (let i = 0; i < itemConst.length; i++) {
             for (let ii = 0; ii < itemConst.length; ii++) {
-               if (cauntryBl == countrySpan[ii].textContent) {
+               if (cauntryBl == brendSpan[ii].textContent) {
                   document.querySelector('.wraperAngar').append(itemConst[ii]);
                } else {
-
+   
                }
             }
          }
-      }
+      }*/
    }
-}
-// --------------------------
-function brend() {
-   let itemAvtoAll = document.querySelectorAll('.itemAvto');
-   // let brendSpan = document.querySelectorAll('.brendSpan');
-
-   if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
-      sbros();
-      return 0;
-   }
-
-   /*if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
-      sbros();
-   } else {*/
-   if (iterOpenBrend == 0) {
-
-      for (let i = 0; i < itemAvtoAll.length; i++) {
-         for (let ii = 0; ii < itemAvtoAll.length; ii++) {
-            if (cauntryBl == brendSpan[ii].textContent) {
-               // itemAvtoAll[ii].style.display = '';
-            } else {
-               itemAvtoAll[ii].remove();
-               // itemAvtoAll[ii].style.display = 'none';
-            }
-         }
-      }
-      iterOpenBrend++;
-   } else {
-      for (let i = 0; i < itemConst.length; i++) {
-         for (let ii = 0; ii < itemConst.length; ii++) {
-            if (cauntryBl == brendSpan[ii].textContent) {
-               document.querySelector('.wraperAngar').append(itemConst[ii]);
-            } else {
-
-            }
-         }
-      }
-   }
-   //}
-
+   iterOpenBrend++;
 }
