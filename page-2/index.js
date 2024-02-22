@@ -88,11 +88,16 @@ function Gosort(e) {
          cauntryBl = e.target.textContent;
          if (masChoiceUserCountry.includes(cauntryBl)) {
             e.target.classList.toggle("createBackgroundColor");
-            deleteCountry();
+
+            for (let ir = 0; ir < masChoiceUserCountry.length; ir++) {
+               if (masChoiceUserCountry[ir] == cauntryBl) {
+                  masChoiceUserCountry.splice(ir, 1);
+               }
+            }
+
          } else {
             masChoiceUserCountry.push(cauntryBl);
             e.target.classList.toggle("createBackgroundColor");
-            // createCountry();
          }
          break;
       case 'Сначала дорогие':
@@ -113,11 +118,14 @@ function Gosort(e) {
          cauntryBl = e.target.textContent;
          if (masChoiceUserBrend.includes(cauntryBl)) {
             e.target.classList.toggle("createBackgroundColor");
-            deleteBrend();
+            for (let ir = 0; ir < masChoiceUserBrend.length; ir++) {
+               if (masChoiceUserBrend[ir] == cauntryBl) {
+                  masChoiceUserBrend.splice(ir, 1);
+               }
+            }
          } else {
             masChoiceUserBrend.push(cauntryBl);
             e.target.classList.toggle("createBackgroundColor");
-            // createBrend();
          }
          break;
       case 'Поиск':
@@ -132,22 +140,65 @@ function Gosort(e) {
    }
 
    function searchGo() {
-
       let itemAvtoAll = document.querySelectorAll('.itemAvto');
-      for (let i = 0; i < itemAvtoAll.length; i++) {
-         itemAvtoAll[i].remove();
+
+      if (masChoiceUserBrend.length > 0 && masChoiceUserCountry.length < 1) {
+         for (let et = 0; et < itemAvtoAll.length; et++) {
+            itemAvtoAll[et].remove();
+         }
+
+         for (let e = 0; e < masChoiceUserBrend.length; e++) {
+            for (let ee = 0; ee < itemConst.length; ee++) {
+               if (masChoiceUserBrend[e] == itemConst[ee].querySelector('.brendSpan').textContent) {
+                  document.querySelector('.wraperAngar').append(itemConst[ee]);
+               }
+            }
+         }
+         return 0;
       }
-      for (let ii = 0; ii < masChoiceUserCountry.length; ii++) {
-         for (let it = 0; it < itemConst.length; it++) {
-            if (masChoiceUserCountry[ii] == itemConst[it].querySelector('.countrySpan').textContent) {
-               document.querySelector('.wraperAngar').append(itemConst[it]);
+
+      if (masChoiceUserBrend.length < 1 && masChoiceUserCountry.length > 0) {
+         for (let et = 0; et < itemAvtoAll.length; et++) {
+            itemAvtoAll[et].remove();
+         }
+
+         for (let e = 0; e < masChoiceUserCountry.length; e++) {
+            for (let ee = 0; ee < itemConst.length; ee++) {
+               if (masChoiceUserCountry[e] == itemConst[ee].querySelector('.countrySpan').textContent) {
+                  document.querySelector('.wraperAngar').append(itemConst[ee]);
+               }
+            }
+         }
+         return 0;
+      }
+
+      if (masChoiceUserCountry.length < 1 && masChoiceUserBrend.length < 1) {
+         for (let i = 0; i < itemAvtoAll.length; i++) {
+            itemAvtoAll[i].remove();
+         }
+         for (let ii = 0; ii < itemConst.length; ii++) {
+            document.querySelector('.wraperAngar').append(itemConst[ii]);
+         }
+         return 0;
+      }
+      else {
+         for (let i = 0; i < itemAvtoAll.length; i++) {
+            itemAvtoAll[i].remove();
+         }
+
+         for (let ii = 0; ii < masChoiceUserCountry.length; ii++) {
+            for (let it = 0; it < itemConst.length; it++) {
+               if (masChoiceUserCountry[ii] == itemConst[it].querySelector('.countrySpan').textContent) {
+                  for (let id = 0; id < masChoiceUserBrend.length; id++) {
+                     if (masChoiceUserBrend[id] == itemConst[it].querySelector('.brendSpan').textContent) {
+                        document.querySelector('.wraperAngar').append(itemConst[it]);
+                     }
+                  }
+               }
             }
          }
       }
-
    }
-
-
 
    function sbros() {
 
@@ -165,7 +216,7 @@ function Gosort(e) {
             podBrend[it].classList.remove("createBackgroundColor");
          }
       }
-      masChoiceUserBrend.splice(0, masChoiceUserBrend.length);//проблема
+      masChoiceUserBrend.splice(0, masChoiceUserBrend.length);
       masChoiceUserCountry.splice(0, masChoiceUserCountry.length);
    };
 
@@ -210,153 +261,4 @@ function Gosort(e) {
          }
       }
    }
-   // -----------------
-
-   function createCountry() {
-      let itemAvtoAll = document.querySelectorAll('.itemAvto');
-      for (let i = 0; i < itemAvtoAll.length; i++) {
-         itemAvtoAll[i].remove();
-      }
-
-      for (let ii = 0; ii < masChoiceUserCountry.length; ii++) {
-         for (let it = 0; it < itemAvtoAll.length; it++) {
-            if (masChoiceUserCountry[ii] == itemAvtoAll[it].querySelector('.countrySpan').textContent) {
-               document.querySelector('.wraperAngar').append(itemAvtoAll[it]);
-            }
-         }
-      }
-   };
-
-   function deleteCountry() {
-      let itemAvtoAll = document.querySelectorAll('.itemAvto');
-
-      for (let it = 0; it < itemAvtoAll.length; it++) {
-         if (cauntryBl == itemAvtoAll[it].querySelector('.countrySpan').textContent) {
-            itemAvtoAll[it].remove();
-            tuti();
-         }
-      }
-
-      for (let ir = 0; ir < masChoiceUserCountry.length; ir++) {
-         if (masChoiceUserCountry[ir] == cauntryBl) {
-            masChoiceUserCountry.splice(ir, 1); // проблема
-         }
-      }
-
-      function tuti() {
-         let itemAvtoAll = document.querySelectorAll('.itemAvto');
-         if (itemAvtoAll.length == 0) {
-            for (let ii = 0; ii < itemConst.length; ii++) {
-               document.querySelector('.wraperAngar').append(itemConst[ii]);
-            }
-
-            let podBrend = document.querySelectorAll('.podBrend');
-            for (let it = 0; it < podBrend.length; it++) {
-               if (podBrend[it].classList.contains("createBackgroundColor")) {
-                  podBrend[it].classList.remove("createBackgroundColor");
-               }
-            }
-            masChoiceUserBrend.splice(0, masChoiceUserBrend.length);
-            masChoiceUserCountry.splice(0, masChoiceUserCountry.length);//проблема
-         }
-
-      }
-   };
-
-
-
-   /* function country() {
-       let itemAvtoAll = document.querySelectorAll('.itemAvto');
-       // let countrySpan = document.querySelectorAll('.countrySpan');
- 
-       if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
-          sbros();
-          return 0;
-       }
- 
-       if (iterOpen == 0) {
-          // if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
-            //  sbros();
-           //} else {
- 
-          for (let i = 0; i < itemAvtoAll.length; i++) {
-             for (let ii = 0; ii < itemAvtoAll.length; ii++) {
-                if (cauntryBl == countrySpan[ii].textContent) {
-                   //  itemAvtoAll[ii].style.display = '';
- 
-                } else {
-                   itemAvtoAll[ii].remove();
-                   // itemAvtoAll[ii].style.display = 'none';
-                }
-             }
-          }
-          //}
-          iterOpen++;
-       } else {
- 
-          for (let i = 0; i < itemConst.length; i++) {
-             for (let ii = 0; ii < itemConst.length; ii++) {
-                if (cauntryBl == countrySpan[ii].textContent) {
-                   document.querySelector('.wraperAngar').append(itemConst[ii]);
-                } else {
- 
-                }
-             }
-          }
-       }
-    }
- }*/
-   // --------------------------
-
-   function createBrend() {
-      let itemAvtoAll = document.querySelectorAll('.itemAvto');
-      for (let i = 0; i < itemAvtoAll.length; i++) {
-         itemAvtoAll[i].remove();
-      }
-
-      for (let ii = 0; ii < masChoiceUserBrend.length; ii++) {
-         for (let it = 0; it < itemAvtoAll.length; it++) {
-            if (masChoiceUserBrend[ii] == itemAvtoAll[it].querySelector('.brendSpan').textContent) {
-               document.querySelector('.wraperAngar').append(itemAvtoAll[it]);
-            }
-         }
-      }
-   };
-
-   function deleteBrend() {
-      let itemAvtoAll = document.querySelectorAll('.itemAvto');
-
-      for (let it = 0; it < itemAvtoAll.length; it++) {
-         if (cauntryBl == itemAvtoAll[it].querySelector('.brendSpan').textContent) {
-            itemAvtoAll[it].remove();
-         }
-      }
-
-      for (let ir = 0; ir < masChoiceUserBrend.length; ir++) {
-         if (masChoiceUserBrend[ir] == cauntryBl) {
-            masChoiceUserBrend.splice(ir, 1);// проблема
-            kuki();
-         }
-      }
-
-      function kuki() {
-         let itemAvtoAll = document.querySelectorAll('.itemAvto');
-         if (itemAvtoAll.length == 0) {
-            for (let ii = 0; ii < itemConst.length; ii++) {
-               document.querySelector('.wraperAngar').append(itemConst[ii]);
-            }
-
-            let podBrend = document.querySelectorAll('.podBrend');
-            for (let it = 0; it < podBrend.length; it++) {
-               if (podBrend[it].classList.contains("createBackgroundColor")) {
-                  podBrend[it].classList.remove("createBackgroundColor");
-               }
-            }
-            masChoiceUserBrend.splice(0, masChoiceUserBrend.length);
-            masChoiceUserCountry.splice(0, masChoiceUserCountry.length); // проблема
-         }
-
-      }
-   };
-
-}
+};
