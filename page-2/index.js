@@ -73,11 +73,11 @@ document.querySelector('.wraperSortIten').addEventListener('click', Gosort);
 var cauntryBl;
 var countrySpan = document.querySelectorAll('.countrySpan');
 var brendSpan = document.querySelectorAll('.brendSpan');
-var masChoiceUserBrend = [], masChoiceUserCountry = [];
+var masChoiceUserBrend = [], masChoiceUserCountry = [], masChoice = [];
 var maimMasCar = [];
 function Gosort(e) {
 
-   switch (e.target.innerHTML) {
+   switch (e.target.textContent) {
       case 'США':
       case 'АНГЛИЯ':
       case 'ФРАНЦИЯ':
@@ -92,7 +92,7 @@ function Gosort(e) {
          } else {
             masChoiceUserCountry.push(cauntryBl);
             e.target.classList.toggle("createBackgroundColor");
-            createCountry();
+            // createCountry();
          }
          break;
       case 'Сначала дорогие':
@@ -117,11 +117,11 @@ function Gosort(e) {
          } else {
             masChoiceUserBrend.push(cauntryBl);
             e.target.classList.toggle("createBackgroundColor");
-            createBrend();
+            // createBrend();
          }
          break;
       case 'Поиск':
-
+         searchGo();
          break;
       case 'Сбросить фильтры':
       case 'Сбросить':
@@ -130,6 +130,25 @@ function Gosort(e) {
       default:
          break;
    }
+
+   function searchGo() {
+
+      let itemAvtoAll = document.querySelectorAll('.itemAvto');
+      for (let i = 0; i < itemAvtoAll.length; i++) {
+         itemAvtoAll[i].remove();
+      }
+      for (let ii = 0; ii < masChoiceUserCountry.length; ii++) {
+         for (let it = 0; it < itemConst.length; it++) {
+            if (masChoiceUserCountry[ii] == itemConst[it].querySelector('.countrySpan').textContent) {
+               document.querySelector('.wraperAngar').append(itemConst[it]);
+            }
+         }
+      }
+
+   }
+
+
+
    function sbros() {
 
       let itemAvtoAll = document.querySelectorAll('.itemAvto');
