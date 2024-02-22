@@ -286,8 +286,11 @@ a {
    background-color: rgb(24, 24, 42);
    border-radius: 20px;
    transition: 0.3s;
-   cursor: pointer;
    position: relative;
+}
+
+.wraperSortText {
+   cursor: pointer;
 }
 
 .sortStyleitem:hover {
@@ -301,11 +304,16 @@ a {
    background-color: rgb(185, 219, 248);
    position: absolute;
    top: 90%;
-   left: -10%;
+   left: 0;
    padding: 10px 10px 10px 10px;
    color: rgb(15, 15, 24);
    z-index: 10;
    display: none;
+}
+
+.wraperCauntryBrend {
+   display: flex;
+   justify-content: space-around;
 }
 
 .podBrend {
@@ -313,10 +321,11 @@ a {
    height: auto;
    font-family: "Inter Tight",
       sans-serif;
-   font-size: 17px;
+   font-size: 15px;
    font-weight: 500;
-   margin-bottom: 10px;
-   padding: 5px 5px 5px 5px;
+   margin: 0 5px 10px 5px;
+   border-bottom: 1px solid rgba(139, 138, 138, 0.478);
+   cursor: pointer;
 }
 
 .brend:hover>.podBrendWraper {
@@ -324,13 +333,41 @@ a {
 }
 
 .podBrend:hover {
-   color: rgb(185, 219, 248);
-   background-color: rgb(15, 15, 24);
+   border-bottom: 1px solid rgb(0, 0, 0);
+   text-shadow: 1px 0px #343333;
+}
+
+.podBrendCauntryBrendText {
+   color: rgb(0, 0, 0);
+   background-color: rgb(116, 116, 143);
+   margin: 0 5px 5px 5px;
+}
+
+.sbros {
+   color: brown;
+}
+
+.search {
+   width: auto;
+   height: auto;
+   font-family: "Inter Tight",
+      sans-serif;
+   font-size: 15px;
+   font-weight: 500;
+   margin: 0 5px 10px 5px;
+   color: rgb(6, 171, 12);
+   border-bottom: 1px solid rgba(6, 171, 12, 0.3);
+   cursor: pointer;
+}
+
+.search:hover {
+   border-bottom: 1px rgb(6, 171, 12) solid;
+   text-shadow: 1px 0px rgb(6, 171, 12);
 }
 
 /* --- style for js ------*/
 .createBackgroundColor {
-   background-color: rgb(3, 123, 21);
+   background-color: rgb(90, 150, 99);
 }
 
 /* --- style for js ------*/

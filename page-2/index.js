@@ -85,7 +85,7 @@ function Gosort(e) {
       case 'ПОЛЬША':
       case 'ЯПОНИЯ':
       case 'ИСПАНИЯ':
-         cauntryBl = e.target.innerHTML;
+         cauntryBl = e.target.textContent;
          if (masChoiceUserCountry.includes(cauntryBl)) {
             e.target.classList.toggle("createBackgroundColor");
             deleteCountry();
@@ -94,7 +94,6 @@ function Gosort(e) {
             e.target.classList.toggle("createBackgroundColor");
             createCountry();
          }
-         country();
          break;
       case 'Сначала дорогие':
          expensive();
@@ -111,7 +110,7 @@ function Gosort(e) {
       case 'Toyota':
       case 'Tesla':
       case 'Corvette':
-         cauntryBl = e.target.innerHTML;
+         cauntryBl = e.target.textContent;
          if (masChoiceUserBrend.includes(cauntryBl)) {
             e.target.classList.toggle("createBackgroundColor");
             deleteBrend();
@@ -120,6 +119,9 @@ function Gosort(e) {
             e.target.classList.toggle("createBackgroundColor");
             createBrend();
          }
+         break;
+      case 'Поиск':
+
          break;
       case 'Сбросить фильтры':
       case 'Сбросить':
@@ -235,8 +237,8 @@ function Gosort(e) {
                   podBrend[it].classList.remove("createBackgroundColor");
                }
             }
-
-            masChoiceUserCountry.splice(0, masChoiceUserBrend.length);//проблема
+            masChoiceUserBrend.splice(0, masChoiceUserBrend.length);
+            masChoiceUserCountry.splice(0, masChoiceUserCountry.length);//проблема
          }
 
       }
@@ -308,13 +310,13 @@ function Gosort(e) {
       for (let it = 0; it < itemAvtoAll.length; it++) {
          if (cauntryBl == itemAvtoAll[it].querySelector('.brendSpan').textContent) {
             itemAvtoAll[it].remove();
-            kuki();
          }
       }
 
       for (let ir = 0; ir < masChoiceUserBrend.length; ir++) {
          if (masChoiceUserBrend[ir] == cauntryBl) {
             masChoiceUserBrend.splice(ir, 1);// проблема
+            kuki();
          }
       }
 
@@ -331,52 +333,11 @@ function Gosort(e) {
                   podBrend[it].classList.remove("createBackgroundColor");
                }
             }
-
+            masChoiceUserBrend.splice(0, masChoiceUserBrend.length);
             masChoiceUserCountry.splice(0, masChoiceUserCountry.length); // проблема
          }
 
       }
    };
 
-   function brend() {
-
-      // ### ### #### #### #####
-
-      /*let itemAvtoAll = document.querySelectorAll('.itemAvto');
-      // let brendSpan = document.querySelectorAll('.brendSpan');
-   
-      if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
-         sbros();
-         return 0;
-      }
-   
-      //if (cauntryBl == document.querySelectorAll('.podBrend')[0].textContent) {
-       //  sbros();
-      //} else {
-      if (iterOpenBrend == 0) {
-   
-         for (let i = 0; i < itemAvtoAll.length; i++) {
-            for (let ii = 0; ii < itemAvtoAll.length; ii++) {
-               if ( == brendSpan[ii].textContent) {
-                  // itemAvtoAll[ii].style.display = '';
-               } else {
-                  itemAvtoAll[ii].remove();
-                  // itemAvtoAll[ii].style.display = 'none';
-               }
-            }
-         }
-         iterOpenBrend++;
-      } else {
-         for (let i = 0; i < itemConst.length; i++) {
-            for (let ii = 0; ii < itemConst.length; ii++) {
-               if (cauntryBl == brendSpan[ii].textContent) {
-                  document.querySelector('.wraperAngar').append(itemConst[ii]);
-               } else {
-   
-               }
-            }
-         }
-      }*/
-   }
-   iterOpenBrend++;
 }
