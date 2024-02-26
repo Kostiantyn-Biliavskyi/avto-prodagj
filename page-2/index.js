@@ -43,6 +43,11 @@ document.querySelector('.burgerSmallMenu').addEventListener('click', (e) => {
       click = 0;
    }
 });
+// -------------------------------------------------------
+filter.addEventListener('click', function (e) {
+   document.querySelector('.podBrendWraper').classList.toggle("classHover");
+});
+
 // --------------------------- Sort----items--------------------------------------------
 var avtoSrc = ['../css/foto.css/fonwall.black-supercar-wallpaper-maserati-cars.jpeg', '../css/foto.css/fonwall.bmw-m5-f90-restyling-gray-car-matte-machine.jpg', '../css/foto.css/fonwall.black-supercar-wallpaper-maserati-cars.jpeg', '../css/foto.css/fonwall.ford-mustang-cars-2018-cars-dtkb.jpeg', '../css/foto.css/fonwall.ford-mustang-cars-2018-cars-dtkb.jpeg', '../css/foto.css/fonwall.ford-mustang-wheelbarrow.jpg', '../css/foto.css/fonwall.ford-mustang-cars-2018-cars-dtkb.jpeg', '../css/foto.css/fonwall.ford-mustang-cars-2018-cars-dtkb.jpeg', '../css/foto.css/fonwall.bmw-m5-f90-restyling-gray-car-matte-machine.jpg'];
 var avtoPrais = [65000, 70000, 78000, 35000, 40000, 48000, 35000, 40000, 50000];

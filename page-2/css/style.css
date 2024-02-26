@@ -251,6 +251,10 @@ a {
    padding-bottom: 20px;
 }
 
+.brendCountry {
+   position: relative;
+}
+
 .wraperSortIten {
    width: 100%;
    height: auto;
@@ -286,7 +290,7 @@ a {
    background-color: rgb(24, 24, 42);
    border-radius: 20px;
    transition: 0.3s;
-   position: relative;
+   cursor: pointer;
 }
 
 .wraperSortText {
@@ -303,7 +307,7 @@ a {
    height: auto;
    background-color: rgb(185, 219, 248);
    position: absolute;
-   top: 90%;
+   top: 100%;
    left: 0;
    padding: 10px 10px 10px 10px;
    color: rgb(15, 15, 24);
@@ -328,7 +332,10 @@ a {
    cursor: pointer;
 }
 
-.brend:hover>.podBrendWraper {
+/* .brend:hover>.podBrendWraper {
+   display: block; 
+} */
+.classHover {
    display: block;
 }
 
