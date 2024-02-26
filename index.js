@@ -26,11 +26,10 @@ function noBackground(e) {
 }
 
 //------------------------------------------------------
-//------------------------------------------------------
+//--------------------------SLIDER----------------------------
 function openSlider() {
    var masFoto = [], foto, stopTimeout2, stopTimeout, prais = [];
    var iw = 0, oneLeft;
-   // var quantityFofo = document.querySelector('.MainWraper').children.length;
    var quantityFofo = document.querySelectorAll('.foto').length;
 
    foto = document.querySelectorAll('.foto');
@@ -129,6 +128,11 @@ function openSlider() {
          }
       }
    }
+
+   document.querySelector('.MainWraper').addEventListener('touchstart', function (e) {
+      alert(e.target.changedTouches[0].pageX)
+   });
+
 }
 openSlider();
 // ----------------------------------
